@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_08_112355) do
+ActiveRecord::Schema.define(version: 2023_06_09_152301) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "comment"
+    t.integer "new_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["new_id"], name: "index_comments_on_new_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.string "name", null: false
@@ -22,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_06_08_112355) do
   create_table "leagues", force: :cascade do |t|
     t.string "name", null: false
     t.string "region", null: false
+    t.integer "news_id", null: false
   end
 
   create_table "news", force: :cascade do |t|
@@ -31,6 +40,8 @@ ActiveRecord::Schema.define(version: 2023_06_08_112355) do
     t.integer "teams_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes", default: 0
+    t.string "image"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -39,6 +50,7 @@ ActiveRecord::Schema.define(version: 2023_06_08_112355) do
 
   create_table "sports", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "news_id", null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -51,4 +63,5 @@ ActiveRecord::Schema.define(version: 2023_06_08_112355) do
     t.integer "three_points"
   end
 
+  add_foreign_key "comments", "news", column: "new_id"
 end
