@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import Comment from './Comment';
 import 'boxicons';
 
-function News({ article }) {
+function News({ article, setIsLiked, isLiked }) {
   const { id, title, news, image, likes } = article;
   const [comments, setComments] = useState([]);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleLike = () => {
     fetch(`http://localhost:9292/news/${id}/like`, {
@@ -35,6 +36,7 @@ function News({ article }) {
       .then((data) => {
         // Update the comments state with the fetched comments
         setComments(data);
+        setIsLiked(!isLiked)
       })
       .catch((error) => {
         console.error(error);
@@ -43,11 +45,7 @@ function News({ article }) {
 
   return (
     <div className="card">
-      <img
-        src="https://s.yimg.com/uu/api/res/1.2/n27EsyOoj7ioKWSU9mIl1A--~B/Zmk9ZmlsbDtoPTUwNTtweW9mZj0wO3E9OTU7dz05MDA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2023-06/24fbeec0-0496-11ee-8fff-ade2069bb77c"
-        alt={title}
-        className="card-image"
-      />
+      <img src={image} alt={title} className="card-image" />
       <div className="card-content">
         <h2 className="card-title">{title}</h2>
         <p className="card-news">{news}</p>
@@ -55,15 +53,22 @@ function News({ article }) {
       <button className="like" onClick={handleLike}>
         <i className="bx bxs-like bx-tada"></i>Likes: {likes}
       </button>
-      <button className="comment" onMouseOver={handleViewComments}>
+      <button
+        className="comment"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleViewComments}
+      >
         <i className="bx bxs-message-square-dots bx-tada"></i>View Comments
       </button>
-      {/* Render the comments */}
-      <div>
-        {comments.map((comment) => {
-          return <p key={comment.id}>{comment.text}</p>;
-        })}
-      </div>
+      {/* Render the comments if the button is hovered */}
+      {isHovered && (
+        <div>
+          {comments.map((comment) => {
+            return <Comment comment={comment}/>
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -4,11 +4,9 @@ function Search({search, handleSearch}) {
   return (
     <div className='search-container'>
         <input
-        className='search-input'
         type='text'
-        placeholder='Search'
+        placeholder='Search...'
         value={search}
-        id='search'
         onChange={(e) => handleSearch(e)}
         />       
       

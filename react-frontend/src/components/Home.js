@@ -15,6 +15,7 @@ import '../js/custom.js'
 function HomePage() {
   const [news, setNews] = useState([])
   const [search, setSearch] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetch(`http://localhost:9292/news`)
@@ -28,31 +29,20 @@ function HomePage() {
   }, [])
 
 
-  function handleSearch(e) {
+  const handleSearch = (e) => {
     const query = e.target.value;
-    setSearch(query)
+    setSearchTerm(query);
+  };
 
-
-    // Filter songs based on search query
-    const filteredNews = news.filter((article) => {
-      return (
-        article.title && article.title.toLowerCase().includes(query?.toLowerCase()) ||
-        article.artist && article.artist.toLowerCase().includes(query?.toLowerCase())
-      );
-    });
-
-    // Filter albums based on search query
-
-
-
-    setNews(filteredNews);
-    // setAlbums(filteredAlbums);
-  }
+  const filteredNews = news.filter((article) =>
+    article.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  
 
   return (
     <>
       <Navbar search={search} handleSearch={handleSearch} />
-      <News_list news={news} />
+      <News_list news={filteredNews} />
       <About />
       <Footer />
     </>

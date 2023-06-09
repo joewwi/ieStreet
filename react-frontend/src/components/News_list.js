@@ -5,7 +5,8 @@ import '../css/News.css';
 
 function NewsList({ news }) {
   const [articles, setArticles] = useState(news);
-  const [sortBy, setSortBy] = useState('league'); // Default sort option
+  const [sortBy, setSortBy] = useState('likes'); // Default sort option
+  const [isLiked, setIsLiked] = useState(false)
 
   useEffect(() => {
     fetch(`http://localhost:9292/news`)
@@ -14,7 +15,7 @@ function NewsList({ news }) {
         console.log(data);
         setArticles(data);
       });
-  }, []);
+  }, [isLiked]);
 
   const handleSortChange = (event) => {
     const selectedSortOption = event.target.value;
@@ -52,7 +53,7 @@ function NewsList({ news }) {
       </div>
       <div className="carousel-inner">
         {articles.map((article) => (
-          <News article={article} key={article.id} />
+          <News article={article} key={article.id} isLiked={isLiked} setIsLiked={setIsLiked}/>
         ))}
       </div>
     </>
