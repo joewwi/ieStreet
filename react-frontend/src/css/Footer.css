@@ -1,0 +1,42 @@
+.footer-basic {
+    padding: 40px 0;
+    background-color: #B0A4A4;
+    color: #643A6B;
+}
+
+.footer-basic footer {
+    padding-bottom: 10px;
+    margin-top: 30px;
+}
+
+.footer-basic .social a {
+    font-size: 24px;
+    margin: 0 10px;
+    color: #643A6B;
+}
+
+.footer-basic .social a:hover {
+    color: #643A6B;
+}
+
+.footer-basic ul.list-inline li {
+    padding: 10px 15px;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 0;
+
+}
+
+.footer-basic ul.list-inline li a {
+    color: #643A6B;
+}
+
+.footer-basic ul.list-inline li a:hover {
+    color: #0E385F;
+}
+
+.footer-basic .copyright {
+    font-size: 14px;
+    margin-top: 15px;
+    color: #643A6B;
+}

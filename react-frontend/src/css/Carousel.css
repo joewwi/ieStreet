@@ -1,0 +1,6 @@
+div card{
+    box-shadow: 0 4px 8px rgba(216, 23, 23, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+}

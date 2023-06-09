@@ -1,0 +1,59 @@
+.card {
+    position: relative;
+    /* Add position relative */
+    border: 1px solid #240404;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #090d2a !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    position: relative;
+    /* Add position relative */
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-news {
+    font-size: 14px;
+    color: #555;
+}
+.sort-label {
+    color: rgb(250, 251, 255);
+}
+
+.sort-select {
+    border-radius: 5px;
+    background-color: rgb(35, 89, 175);
+    color: black;
+}
+
+.carousel-inner {
+    background-color: black;
+    color: rgb(30, 131, 246);
+}
+button {
+    all: unset;
+    box-shadow: 0 0 5px rgb(18, 132, 208);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+ 
+button.like:hover {
+    background-color: red;
+    color: white;
+}
+
+button.comment:hover {
+    background-color: blue;
+    color: white;
+}
