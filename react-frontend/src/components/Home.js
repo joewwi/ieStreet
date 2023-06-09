@@ -32,12 +32,14 @@ function HomePage() {
   const handleSearch = (e) => {
     const query = e.target.value;
     setSearchTerm(query);
-  };
-
-  const filteredNews = news.filter((article) =>
+    
+    const filteredNews = news.filter((article) =>
     article.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  
+    );
+    
+    setSearch(filteredNews)
+    
+  };
 
   return (
     <>
@@ -63,4 +65,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

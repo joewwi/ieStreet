@@ -1,10 +1,11 @@
 import React from 'react';
 import '../css/comment.css'
 
-const Comment = ({ text, author }) => {
+const Comment = ({ comment, author }) => {
+    
     return (
         <div className="comment">
-            <p className="comment-text">{text}</p>
+            <p className="comment-text">{comment}</p>
             <p className="comment-author">- {author}</p>
         </div>
     );

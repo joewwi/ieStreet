@@ -7,8 +7,7 @@ import Leagues from './components/Leagues'
 
 function App() {
   const [status, setStatus] = useState(false)
-  const [search, setSearch] = useState([])
-  
+
   useEffect(() => {
     fetch(`http://localhost:9292`)
       .then(res => res.json())
@@ -22,14 +21,8 @@ function App() {
   }, []);
 
 
-  // function handleSearch(e){
-  //   const value = e.target.value
-  //   console.log(value);
-  //   setSearch(value)
-  // }
-
-  return<div>
-    {status && <Home/>}
+  return <div>
+    {status && <Home />}
   </div>
 }
 

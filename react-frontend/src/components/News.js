@@ -43,6 +43,8 @@ function News({ article, setIsLiked, isLiked }) {
       });
   };
 
+  console.log(comments);
+
   return (
     <div className="card">
       <img src={image} alt={title} className="card-image" />
@@ -65,6 +67,7 @@ function News({ article, setIsLiked, isLiked }) {
       {isHovered && (
         <div>
           {comments.map((comment) => {
+            console.log(comment);
             return <Comment comment={comment}/>
           })}
         </div>

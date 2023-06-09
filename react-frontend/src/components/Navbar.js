@@ -5,10 +5,7 @@ import "boxicons"
 import '../css/Navbar.css'
 
 function Navbar({ search, handleSearch }) {
-    const [menuOpen, setMenuOpen] = useState(false);
     
-
-
   return (
       <div className="sub_page">
           <div className="hero_area">
