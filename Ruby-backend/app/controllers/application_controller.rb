@@ -46,7 +46,7 @@ class ApplicationController < Sinatra::Base
     begin
       id = params[:id]
       news = News.find_by(id: id)
-      news.likes =+ 1
+      news.likes += 1
       news.save
       "Liked!".to_json
     rescue => e

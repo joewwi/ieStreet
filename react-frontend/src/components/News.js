@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'boxicons';
 
 function News({ article }) {
   const { id, title, news, image, likes } = article;
   const [comments, setComments] = useState([]);
-
-  console.log(article);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
     fetch(`http://localhost:9292/news/${id}/like`, {
@@ -14,32 +13,32 @@ function News({ article }) {
         'Content-Type': 'application/json',
       },
     })
-    .then((res) => res.json())
-    .then((data) => {
-      // Update the like count in your component state or do something with the response data
-      console.log(data); // Example: Log the response data
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        // Update the like count in your component state or do something with the response data
+        console.log(data); // Example: Log the response data
+        setIsLiked(!isLiked);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleViewComments = () => {
-
     fetch(`http://localhost:9292/news/comments/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    .then((res) => res.json())
-    .then((data) => {
-      // Update the comments state with the fetched comments
-      setComments(data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        // Update the comments state with the fetched comments
+        setComments(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -56,13 +55,13 @@ function News({ article }) {
       <button className="like" onClick={handleLike}>
         <i className="bx bxs-like bx-tada"></i>Likes: {likes}
       </button>
-      <button className="comment" onClick={handleViewComments}>
+      <button className="comment" onMouseOver={handleViewComments}>
         <i className="bx bxs-message-square-dots bx-tada"></i>View Comments
       </button>
       {/* Render the comments */}
       <div>
-        {comments.map((comment) =>{
-          <p key={comment.id}>{comment.text}</p>
+        {comments.map((comment) => {
+          return <p key={comment.id}>{comment.text}</p>;
         })}
       </div>
     </div>
