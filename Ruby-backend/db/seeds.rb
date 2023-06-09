@@ -1,59 +1,79 @@
-puts "🌱 Seeding spices..."
+require 'faker'
+# Create dummy data for the tables
 
-require_relative "../config/environment.rb"
-# Clear existing data
-Game.delete_all
-League.delete_all
-News.delete_all
-Schedule.delete_all
-Sport.delete_all
-Team.delete_all
-
-# Create sports
-sport_names = ['Football', 'Basketball', 'Soccer']
-sports = sport_names.map do |name|
-  Sport.create!(name: name)
+# Comments
+50.times do
+  Comment.create!(
+    comment: Faker::Lorem.sentence,
+    news_id: Faker::Number.between(from: 1, to: 50),
+    created_at: Faker::Time.between(from: 1.month.ago, to: Time.current),
+    updated_at: Faker::Time.between(from: 1.month.ago, to: Time.current)
+  )
 end
 
-# Create leagues
-league_names = ['Premier League', 'NBA', 'La Liga']
-regions = ['England', 'USA', 'Spain']
-leagues = league_names.zip(regions).map do |name, region|
-  League.create!(name: name, region: region)
+# Games
+20.times do
+  Game.create!(
+    name: Faker::Game.title,
+    video: Faker::Internet.url,
+    team_id: Faker::Number.between(from: 1, to: 10),
+    league_id: Faker::Number.between(from: 1, to: 5)
+  )
 end
 
-# Create teams
-teams_data = [
-  { name: 'Manchester United', logo: 'manutd_logo.png', region: 'England', league: leagues[0], total_points: 0, field_points: 0, three_points: 0 },
-  { name: 'Los Angeles Lakers', logo: 'lakers_logo.png', region: 'USA', league: leagues[1], total_points: 0, field_points: 0, three_points: 0 },
-  { name: 'FC Barcelona', logo: 'barcelona_logo.png', region: 'Spain', league: leagues[2], total_points: 0, field_points: 0, three_points: 0 }
-]
-
-teams = teams_data.map do |team_data|
-  Team.create!(team_data)
+# Leagues
+5.times do
+  League.create!(
+    name: Faker::Sports::Basketball.unique.team,
+    region: Faker::Address.country,
+    news_id: Faker::Number.between(from: 1, to: 10)
+  )
 end
 
-# Create games
-games_data = [
-  { name: 'Football Game 1', video: 'football_game1.mp4', team: teams[0], league: leagues[0] },
-  { name: 'Basketball Game 1', video: 'basketball_game1.mp4', team: teams[1], league: leagues[1] },
-  { name: 'Soccer Game 1', video: 'soccer_game1.mp4', team: teams[2], league: leagues[2] }
-]
-
-games = games_data.map do |game_data|
-  Game.create!(game_data)
+# News
+50.times do
+  News.create!(
+    title: Faker::Lorem.sentence,
+    news: Faker::Lorem.paragraph,
+    games_id: Faker::Number.between(from: 1, to: 20),
+    teams_id: Faker::Number.between(from: 1, to: 15),
+    created_at: Faker::Time.between(from: 1.month.ago, to: Time.current),
+    updated_at: Faker::Time.between(from: 1.month.ago, to: Time.current),
+    likes: Faker::Number.between(from: 0, to: 100),
+    image: Faker::LoremPixel.image(size: "300x200", is_gray: false, category: "sports")
+  )
 end
 
-# Create news
-news_data = [
-  { title: 'Football News 1', news: 'Football news content 1', game: games[0], team: teams[0] },
-  { title: 'Basketball News 1', news: 'Basketball news content 1', game: games[1], team: teams[1] },
-  { title: 'Soccer News 1', news: 'Soccer news content 1', game: games[2], team: teams[2] }
-]
 
-News.create!(news_data)
+# Schedules
+25.times do
+  Schedule.create!(
+    date: Faker::Time.between(from: Time.current, to: 1.month.from_now)
+  )
+end
 
-# Create schedules
-Schedule.create!(date: DateTime.now)
+# Sports
+sports_names = []
+50.times do
+  sports_names << Faker::Sports::Football.name
+end
 
-puts "✅ Done seeding!"
+5.times do
+  Sport.create!(
+    name: sports_names.pop,
+    news_id: Faker::Number.between(from: 1, to: 50)
+  )
+end
+
+# Teams
+15.times do
+  Team.create!(
+    league_id: Faker::Number.between(from: 1, to: 5),
+    logo: Faker::Company.logo,
+    name: Faker::Sports::Basketball.unique.team,
+    region: Faker::Address.state,
+    total_points: Faker::Number.between(from: 100, to: 1000),
+    field_points: Faker::Number.between(from: 50, to: 500),
+    three_points: Faker::Number.between(from: 10, to: 100)
+  )
+end
